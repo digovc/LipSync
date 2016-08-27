@@ -1,0 +1,7 @@
+/Principal/bin
+/Principal/obj
+/.vs
+/Principal/.vs
+/Principal.TypeScript/obj
+*.csproj.user
+/Principal.TypeScript/bin

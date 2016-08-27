@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LipSync", "LipSync.csproj", "{2D00E9AC-2BC2-4F8C-BC84-C45EA65C46B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LipSync.TypeScript", "LipSync.TypeScript\LipSync.TypeScript.csproj", "{A1BFA579-BE2D-4F05-A116-D85612A2B42F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D00E9AC-2BC2-4F8C-BC84-C45EA65C46B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D00E9AC-2BC2-4F8C-BC84-C45EA65C46B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D00E9AC-2BC2-4F8C-BC84-C45EA65C46B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D00E9AC-2BC2-4F8C-BC84-C45EA65C46B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1BFA579-BE2D-4F05-A116-D85612A2B42F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BFA579-BE2D-4F05-A116-D85612A2B42F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BFA579-BE2D-4F05-A116-D85612A2B42F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BFA579-BE2D-4F05-A116-D85612A2B42F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
