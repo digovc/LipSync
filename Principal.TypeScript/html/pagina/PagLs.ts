@@ -1,10 +1,14 @@
-﻿/// <reference path="../../../Web.TypeScript/html/pagina/PaginaHtml.ts"/>
+﻿/// <reference path="../../../Web.TypeScript/html/Input.ts"/>
+/// <reference path="../../../Web.TypeScript/html/pagina/PaginaHtml.ts"/>
+/// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module LipSyc
 {
     // #region Importações
 
+    import Input = NetZ_Web.Input;
     import PaginaHtml = NetZ_Web.PaginaHtml;
+    import Utils = NetZ_Web.Utils;
 
     // #endregion Importações
 
@@ -20,8 +24,8 @@ module LipSyc
 
         private _divAudioViewer: AudioViewer;
         private _divComando: Comando;
-        private _divPalavraContainer: PalavraContainer;
         private _divTimeLine: TimeLine;
+        private _tagInput: Input;
 
         public get divAudioViewer(): AudioViewer
         {
@@ -47,18 +51,6 @@ module LipSyc
             return this._divComando;
         }
 
-        private get divPalavraContainer(): PalavraContainer
-        {
-            if (this._divPalavraContainer != null)
-            {
-                return this._divPalavraContainer;
-            }
-
-            this._divPalavraContainer = new PalavraContainer();
-
-            return this._divPalavraContainer;
-        }
-
         private get divTimeLine(): TimeLine
         {
             if (this._divTimeLine != null)
@@ -71,6 +63,18 @@ module LipSyc
             return this._divTimeLine;
         }
 
+        private get tagInput(): Input
+        {
+            if (this._tagInput != null)
+            {
+                return this._tagInput;
+            }
+
+            this._tagInput = new Input("tagInput");
+
+            return this._tagInput;
+        }
+
         // #endregion Atributos
 
         // #region Construtores
@@ -78,14 +82,31 @@ module LipSyc
 
         // #region Métodos
 
+        public addTexto(): void
+        {
+            if (Utils.getBooStrVazia(this.tagInput.strValor))
+            {
+                return;
+            }
+
+            var arrStrPalavra = this.tagInput.strValor.split(" ");
+
+            if (arrStrPalavra == null)
+            {
+                return;
+            }
+
+            arrStrPalavra.forEach((strPalavra) => { this.divTimeLine.addPalavra(strPalavra); });
+        }
+
         protected inicializar(): void
         {
             super.inicializar();
 
             this.divAudioViewer.iniciar();
             this.divComando.iniciar();
-            this.divPalavraContainer.iniciar();
             this.divTimeLine.iniciar();
+            this.tagInput.iniciar();
         }
 
         // #endregion Métodos

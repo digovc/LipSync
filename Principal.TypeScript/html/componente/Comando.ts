@@ -112,6 +112,11 @@ module LipSyc
 
         // #region Métodos
 
+        private addTexto(): void
+        {
+            this.pagLs.addTexto();
+        }
+
         private posicionarFinal(): void
         {
             this.pagLs.divAudioViewer.posicionarFinal();
@@ -147,6 +152,7 @@ module LipSyc
             switch (objSender)
             {
                 case this.btnAddTexto:
+                    this.addTexto();
                     return;
 
                 case this.btnAudioSelecionar:
