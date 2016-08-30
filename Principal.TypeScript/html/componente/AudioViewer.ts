@@ -46,6 +46,16 @@ module LipSyc
 
         // #region Métodos
 
+        public carregarAudio(fleAudio: File): void
+        {
+            if (fleAudio == null)
+            {
+                return;
+            }
+
+            this.objWaveSurfer.loadBlob(fleAudio);
+        }
+
         private getObjWaveSurfer(): WaveSurfer
         {
             var objParams: WaveSurfer.params = {
@@ -53,8 +63,6 @@ module LipSyc
             };
 
             var objWaveSurferResultado = WaveSurfer.create(objParams);
-
-            objWaveSurferResultado.load('/res/media/audio/test.wav');
 
             return objWaveSurferResultado;
         }

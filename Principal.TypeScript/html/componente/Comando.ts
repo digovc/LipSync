@@ -1,19 +1,25 @@
 ﻿/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+/// <reference path="../../../Web.TypeScript/html/Input.ts"/>
 /// <reference path="../../../Web.TypeScript/OnClickListener.ts"/>
+/// <reference path="../../../Web.TypeScript/OnValorAlteradoArg.ts"/>
+/// <reference path="../../../Web.TypeScript/OnValorAlteradoListener.ts"/>
 
 module LipSyc
 {
     // #region Importações
 
     import ComponenteHtml = NetZ_Web.ComponenteHtml;
+    import Input = NetZ_Web.Input;
     import OnClickListener = NetZ_Web.OnClickListener;
+    import OnValorAlteradoArg = NetZ_Web.OnValorAlteradoArg;
+    import OnValorAlteradoListener = NetZ_Web.OnValorAlteradoListener;
 
     // #endregion Importações
 
     // #region Enumerados
     // #endregion Enumerados
 
-    export class Comando extends ComponenteHtml implements OnClickListener
+    export class Comando extends ComponenteHtml implements OnClickListener, OnValorAlteradoListener
     {
         // #region Constantes
         // #endregion Constantes
@@ -25,6 +31,7 @@ module LipSyc
         private _btnFinal: BotaoComando;
         private _btnInicio: BotaoComando;
         private _btnPlay: BotaoComando;
+        private _divInputAudio: Input;
         private _pagLs: PagLs;
 
         private get btnAddTexto(): BotaoComando
@@ -87,6 +94,18 @@ module LipSyc
             return this._btnPlay;
         }
 
+        private get divInputAudio(): Input
+        {
+            if (this._divInputAudio != null)
+            {
+                return this._divInputAudio;
+            }
+
+            this._divInputAudio = new Input("divInputAudio");
+
+            return this._divInputAudio;
+        }
+
         private get pagLs(): PagLs
         {
             return this._pagLs;
@@ -117,6 +136,25 @@ module LipSyc
             this.pagLs.addTexto();
         }
 
+        private carregarAudio(): void
+        {
+            var elmInput = (this.divInputAudio.jq[0] as HTMLInputElement);
+
+            if (elmInput == null)
+            {
+                return;
+            }
+
+            if (elmInput.files == null)
+            {
+                return;
+            }
+
+            var fleAudio = elmInput.files[0];
+
+            this.pagLs.divAudioViewer.carregarAudio(fleAudio);
+        }
+
         private posicionarFinal(): void
         {
             this.pagLs.divAudioViewer.posicionarFinal();
@@ -132,6 +170,11 @@ module LipSyc
             this.pagLs.divAudioViewer.reproduzirParar();
         }
 
+        private selecionarAudio(): void
+        {
+            this.divInputAudio.jq.click();
+        }
+
         protected setEventos(): void
         {
             super.setEventos();
@@ -141,6 +184,8 @@ module LipSyc
             this.btnFinal.addEvtOnClickListener(this);
             this.btnInicio.addEvtOnClickListener(this);
             this.btnPlay.addEvtOnClickListener(this);
+
+            this.divInputAudio.addEvtOnValorAlteradoListener(this);
         }
 
         // #endregion Métodos
@@ -156,6 +201,7 @@ module LipSyc
                     return;
 
                 case this.btnAudioSelecionar:
+                    this.selecionarAudio();
                     return;
 
                 case this.btnFinal:
@@ -168,6 +214,16 @@ module LipSyc
 
                 case this.btnPlay:
                     this.reproduzirParar();
+                    return;
+            }
+        }
+
+        public onValorAlterado(objSender: Object, arg: OnValorAlteradoArg): void
+        {
+            switch (objSender)
+            {
+                case this.divInputAudio:
+                    this.carregarAudio();
                     return;
             }
         }

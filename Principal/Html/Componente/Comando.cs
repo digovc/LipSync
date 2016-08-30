@@ -18,6 +18,8 @@ namespace LipSync.Html.Componente
         private BotaoComando _btnInicio;
         private BotaoComando _btnPlay;
 
+        private Input _divInputAudio;
+
         private BotaoComando btnAddTexto
         {
             get
@@ -93,6 +95,21 @@ namespace LipSync.Html.Componente
             }
         }
 
+        private Input divInputAudio
+        {
+            get
+            {
+                if (_divInputAudio != null)
+                {
+                    return _divInputAudio;
+                }
+
+                _divInputAudio = new Input();
+
+                return _divInputAudio;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -128,12 +145,16 @@ namespace LipSync.Html.Componente
 
             this.btnPlay.strId = "btnPlay";
             this.btnPlay.strTitle = "Reproduzir/parar";
+
+            this.divInputAudio.strId = "divInputAudio";
+            this.divInputAudio.enmTipo = Input.EnmTipo.FILE;
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
+            this.divInputAudio.setPai(this);
             this.btnAudioSelecionar.setPai(this);
             this.btnInicio.setPai(this);
             this.btnPlay.setPai(this);
@@ -149,6 +170,8 @@ namespace LipSync.Html.Componente
             this.addCss(css.setCenter());
             this.addCss(css.setHeight(50));
             this.addCss(css.setWidth(250));
+
+            this.divInputAudio.addCss(css.setDisplay("none"));
         }
 
         #endregion Métodos
