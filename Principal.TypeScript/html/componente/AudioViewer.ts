@@ -1,14 +1,18 @@
-﻿/// <reference path="../../typedefinition/wavesurfer.d.ts" />
+﻿/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+/// <reference path="../../typedefinition/wavesurfer.d.ts" />
 
 module LipSyc
 {
     // #region Importações
+
+    import ComponenteHtml = NetZ_Web.ComponenteHtml;
+
     // #endregion Importações
 
     // #region Enumerados
     // #endregion Enumerados
 
-    export class AudioViewer
+    export class AudioViewer extends ComponenteHtml
     {
         // #region Constantes
         // #endregion Constantes
@@ -17,7 +21,7 @@ module LipSyc
 
         private _objWaveSurfer: WaveSurfer;
 
-        private get WobjaveSurfer(): WaveSurfer
+        private get objWaveSurfer(): WaveSurfer
         {
             if (this._objWaveSurfer != null)
             {
@@ -32,6 +36,12 @@ module LipSyc
         // #endregion Atributos
 
         // #region Construtores
+
+        constructor()
+        {
+            super("divAudioViewer");
+        }
+
         // #endregion Construtores
 
         // #region Métodos
@@ -39,7 +49,7 @@ module LipSyc
         private getObjWaveSurfer(): WaveSurfer
         {
             var objParams: WaveSurfer.params = {
-                container: '#divAudioWave',
+                container: this.strSelector,
             };
 
             var objWaveSurferResultado = WaveSurfer.create(objParams);
@@ -47,6 +57,21 @@ module LipSyc
             objWaveSurferResultado.load('/res/media/audio/test.wav');
 
             return objWaveSurferResultado;
+        }
+
+        public posicionarFinal(): void
+        {
+            this.objWaveSurfer.seekTo(1);
+        }
+
+        public posicionarInicio(): void
+        {
+            this.objWaveSurfer.seekTo(0);
+        }
+
+        public reproduzirParar(): void
+        {
+            this.objWaveSurfer.playPause();
         }
 
         // #endregion Métodos

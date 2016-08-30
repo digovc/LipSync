@@ -1,6 +1,7 @@
 ﻿using LipSync.Html.Componente;
 using NetZ.Web.Html;
 using NetZ.Web.Html.Pagina;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace LipSync.Html.Pagina
 {
@@ -13,6 +14,9 @@ namespace LipSync.Html.Pagina
         #region Atributos
 
         private AudioViewer _divAudioViewer;
+        private Comando _divComando;
+        private Input _divInput;
+        private TimeLine _divTimeLine;
 
         private AudioViewer divAudioViewer
         {
@@ -26,6 +30,51 @@ namespace LipSync.Html.Pagina
                 _divAudioViewer = new AudioViewer();
 
                 return _divAudioViewer;
+            }
+        }
+
+        private Comando divComando
+        {
+            get
+            {
+                if (_divComando != null)
+                {
+                    return _divComando;
+                }
+
+                _divComando = new Comando();
+
+                return _divComando;
+            }
+        }
+
+        private Input divInput
+        {
+            get
+            {
+                if (_divInput != null)
+                {
+                    return _divInput;
+                }
+
+                _divInput = new Input();
+
+                return _divInput;
+            }
+        }
+
+        private TimeLine divTimeLine
+        {
+            get
+            {
+                if (_divTimeLine != null)
+                {
+                    return _divTimeLine;
+                }
+
+                _divTimeLine = new TimeLine();
+
+                return _divTimeLine;
             }
         }
 
@@ -45,11 +94,17 @@ namespace LipSync.Html.Pagina
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag("/res/js/lib/jquery-3.1.0.slim.min.js"));
-            lstJs.Add(new JavaScriptTag("/res/js/lib/wavesurfer.min.js"));
+            lstJs.Add(new JavaScriptTag("/res/js/lib/wavesurfer.min.js", 100));
 
-            lstJs.Add(new JavaScriptTag("/res/js/LipSync/AppLs.js"));
-            lstJs.Add(new JavaScriptTag("/res/js/LipSync/html/pagina/PagLs.js"));
+            lstJs.Add(new JavaScriptTag(typeof(AppLs), 200));
+            lstJs.Add(new JavaScriptTag(typeof(PagLs), 201));
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            this.divInput.enmTipo = Input.EnmTipo.TEXT_AREA;
         }
 
         protected override void montarLayout()
@@ -57,6 +112,20 @@ namespace LipSync.Html.Pagina
             base.montarLayout();
 
             this.divAudioViewer.setPai(this);
+            this.divTimeLine.setPai(this);
+            this.divComando.setPai(this);
+            this.divInput.setPai(this);
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.divInput.addCss(css.setBorderRadius(10));
+            this.divInput.addCss(css.setCenter());
+            this.divInput.addCss(css.setDisplay("block"));
+            this.divInput.addCss(css.setMarginTop(10));
+            this.divInput.addCss(css.setWidth(500));
         }
 
         #endregion Métodos

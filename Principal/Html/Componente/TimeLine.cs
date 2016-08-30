@@ -4,7 +4,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace LipSync.Html.Componente
 {
-    internal class AudioViewer : ComponenteHtml
+    public class TimeLine : ComponenteHtml
     {
         #region Constantes
 
@@ -24,14 +24,14 @@ namespace LipSync.Html.Componente
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(AudioViewer), 200));
+            lstJs.Add(new JavaScriptTag(typeof(TimeLine), 200));
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.strId = "divAudioViewer";
+            this.strId = "divTimeLine";
         }
 
         protected override void setCss(CssArquivo css)
@@ -39,7 +39,7 @@ namespace LipSync.Html.Componente
             base.setCss(css);
 
             this.addCss(css.setBorderBottom(1, "solid", "gray"));
-            this.addCss(css.setMinHeight(125));
+            this.addCss(css.setHeight(50));
         }
 
         #endregion Métodos

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LipSync
+﻿namespace LipSync
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             new AppLs().inicializarServidor();
 
-            System.Console.ReadKey();
+            System.Console.Read();
         }
     }
 }

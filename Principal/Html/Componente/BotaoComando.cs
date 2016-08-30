@@ -1,10 +1,10 @@
 ﻿using NetZ.Web.Html;
-using NetZ.Web.Html.Componente;
+using NetZ.Web.Html.Componente.Botao;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace LipSync.Html.Componente
 {
-    internal class AudioViewer : ComponenteHtml
+    public class BotaoComando : BotaoHtml
     {
         #region Constantes
 
@@ -24,22 +24,22 @@ namespace LipSync.Html.Componente
         {
             base.addJs(lstJs);
 
-            lstJs.Add(new JavaScriptTag(typeof(AudioViewer), 200));
+            lstJs.Add(new JavaScriptTag(typeof(BotaoComando), 200));
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.strId = "divAudioViewer";
+            this.enmLado = EnmLado.ESQUERDA;
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.addCss(css.setBorderBottom(1, "solid", "gray"));
-            this.addCss(css.setMinHeight(125));
+            this.addCss(css.setBorder(1, "solid", "gray"));
+            this.addCss(css.setMargin(10));
         }
 
         #endregion Métodos

@@ -1,0 +1,15 @@
+[submodule "Web"]
+	path = Web
+	url = http://servidor.relatar.com.br:8080/tfs/Relatar/_git/NetZ.Web
+[submodule "SistemaBase"]
+	path = SistemaBase
+	url = http://servidor.relatar.com.br:8080/tfs/Relatar/_git/NetZ.SistemaBase
+[submodule "DigoFramework"]
+	path = DigoFramework
+	url = http://servidor.relatar.com.br:8080/tfs/Relatar/_git/DigoFramework
+[submodule "Web.TypeScript"]
+	path = Web.TypeScript
+	url = http://servidor.relatar.com.br:8080/tfs/Relatar/_git/NetZ.Web.TypeScript
+[submodule "Persistencia"]
+	path = Persistencia
+	url = http://servidor.relatar.com.br:8080/tfs/Relatar/_git/NetZ.Persistencia

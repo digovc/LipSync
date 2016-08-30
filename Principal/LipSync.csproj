@@ -34,21 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DigoFramework">
-      <HintPath>lib\DigoFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="NetZ.Persistencia">
-      <HintPath>lib\NetZ.Persistencia.dll</HintPath>
-    </Reference>
-    <Reference Include="NetZ.SistemaBase">
-      <HintPath>lib\NetZ.SistemaBase.dll</HintPath>
-    </Reference>
-    <Reference Include="NetZ.Web">
-      <HintPath>lib\NetZ.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -63,6 +48,10 @@
     <Compile Include="AppLs.cs" />
     <Compile Include="ConfigLs.cs" />
     <Compile Include="Html\Componente\AudioViewer.cs" />
+    <Compile Include="Html\Componente\BotaoComando.cs" />
+    <Compile Include="Html\Componente\Comando.cs" />
+    <Compile Include="Html\Componente\PalavraContainer.cs" />
+    <Compile Include="Html\Componente\TimeLine.cs" />
     <Compile Include="Html\Pagina\PagLs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +61,24 @@
     <Content Include="res\media\audio\test.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DigoFramework\DigoFramework.csproj">
+      <Project>{93078de5-a910-4ad6-a942-657582105493}</Project>
+      <Name>DigoFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
+      <Project>{5fdebacf-1812-47a0-8fba-25db3ad2b31c}</Project>
+      <Name>NetZ.Persistencia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SistemaBase\NetZ.SistemaBase.csproj">
+      <Project>{4ec8339f-4e73-4786-b3bc-073690d9528e}</Project>
+      <Name>NetZ.SistemaBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\NetZ.Web.csproj">
+      <Project>{bf12701f-12d8-41d0-9269-d8921568aa82}</Project>
+      <Name>NetZ.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
