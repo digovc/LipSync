@@ -19,7 +19,20 @@ module LipSyc
 
         // #region Atributos
 
+        private _intTamanhoSegundo: number;
         private _objWaveSurfer: WaveSurfer;
+
+        public get intDuracao(): number
+        {
+            if (this._intTamanhoSegundo != null)
+            {
+                return this._intTamanhoSegundo;
+            }
+
+            this._intTamanhoSegundo = this.getIntTamanhoSegundo();
+
+            return this._intTamanhoSegundo;
+        }
 
         private get objWaveSurfer(): WaveSurfer
         {
@@ -54,6 +67,11 @@ module LipSyc
             }
 
             this.objWaveSurfer.loadBlob(fleAudio);
+        }
+
+        private getIntTamanhoSegundo(): number
+        {
+            return this.objWaveSurfer.getDuration();
         }
 
         private getObjWaveSurfer(): WaveSurfer

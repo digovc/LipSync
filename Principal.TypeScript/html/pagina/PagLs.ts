@@ -25,7 +25,7 @@ module LipSyc
         private _divAudioViewer: AudioViewer;
         private _divComando: Comando;
         private _divTimeLine: TimeLine;
-        private _tagInput: Input;
+        private _tagInputTexto: Input;
 
         public get divAudioViewer(): AudioViewer
         {
@@ -58,21 +58,21 @@ module LipSyc
                 return this._divTimeLine;
             }
 
-            this._divTimeLine = new TimeLine();
+            this._divTimeLine = new TimeLine(this);
 
             return this._divTimeLine;
         }
 
-        private get tagInput(): Input
+        public get tagInputTexto(): Input
         {
-            if (this._tagInput != null)
+            if (this._tagInputTexto != null)
             {
-                return this._tagInput;
+                return this._tagInputTexto;
             }
 
-            this._tagInput = new Input("tagInput");
+            this._tagInputTexto = new Input("tagInputTexto");
 
-            return this._tagInput;
+            return this._tagInputTexto;
         }
 
         // #endregion Atributos
@@ -84,12 +84,12 @@ module LipSyc
 
         public addTexto(): void
         {
-            if (Utils.getBooStrVazia(this.tagInput.strValor))
+            if (Utils.getBooStrVazia(this.tagInputTexto.strValor))
             {
                 return;
             }
 
-            var arrStrPalavra = this.tagInput.strValor.split(" ");
+            var arrStrPalavra = this.tagInputTexto.strValor.split(" ");
 
             if (arrStrPalavra == null)
             {
@@ -99,6 +99,11 @@ module LipSyc
             arrStrPalavra.forEach((strPalavra) => { this.divTimeLine.addPalavra(strPalavra); });
         }
 
+        public gerarScript(): void
+        {
+            this.divTimeLine.gerarScript();
+        }
+
         protected inicializar(): void
         {
             super.inicializar();
@@ -106,7 +111,7 @@ module LipSyc
             this.divAudioViewer.iniciar();
             this.divComando.iniciar();
             this.divTimeLine.iniciar();
-            this.tagInput.iniciar();
+            this.tagInputTexto.iniciar();
         }
 
         // #endregion Métodos

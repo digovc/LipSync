@@ -16,7 +16,7 @@ namespace LipSync.Html.Pagina
         private AudioViewer _divAudioViewer;
         private Comando _divComando;
         private TimeLine _divTimeLine;
-        private Input _tagInput;
+        private Input _tagInputTexto;
 
         private AudioViewer divAudioViewer
         {
@@ -63,18 +63,18 @@ namespace LipSync.Html.Pagina
             }
         }
 
-        private Input tagInput
+        private Input tagInputTexto
         {
             get
             {
-                if (_tagInput != null)
+                if (_tagInputTexto != null)
                 {
-                    return _tagInput;
+                    return _tagInputTexto;
                 }
 
-                _tagInput = new Input();
+                _tagInputTexto = new Input();
 
-                return _tagInput;
+                return _tagInputTexto;
             }
         }
 
@@ -99,6 +99,10 @@ namespace LipSync.Html.Pagina
             lstJs.Add(new JavaScriptTag(typeof(AppLs), 200));
             lstJs.Add(new JavaScriptTag(typeof(PagLs), 201));
             lstJs.Add(new JavaScriptTag(typeof(PalavraContainer), 201));
+
+            lstJs.Add(new JavaScriptTag("/res/js/lipsync/ConfigLs.js", 201));
+            lstJs.Add(new JavaScriptTag("/res/js/lipsync/Fonema.js", 201));
+            lstJs.Add(new JavaScriptTag("/res/js/lipsync/KeyFrame.js", 201));
         }
 
         protected override void addLayoutFixo()
@@ -112,8 +116,8 @@ namespace LipSync.Html.Pagina
         {
             base.inicializar();
 
-            this.tagInput.enmTipo = Input.EnmTipo.TEXT_AREA;
-            this.tagInput.strId = "tagInput";
+            this.tagInputTexto.enmTipo = Input.EnmTipo.TEXT_AREA;
+            this.tagInputTexto.strId = "tagInputTexto";
         }
 
         protected override void montarLayout()
@@ -123,18 +127,18 @@ namespace LipSync.Html.Pagina
             this.divAudioViewer.setPai(this);
             this.divTimeLine.setPai(this);
             this.divComando.setPai(this);
-            this.tagInput.setPai(this);
+            this.tagInputTexto.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.tagInput.addCss(css.setBorderRadius(10));
-            this.tagInput.addCss(css.setCenter());
-            this.tagInput.addCss(css.setDisplay("block"));
-            this.tagInput.addCss(css.setMarginTop(10));
-            this.tagInput.addCss(css.setWidth(500));
+            this.tagInputTexto.addCss(css.setBorderRadius(10));
+            this.tagInputTexto.addCss(css.setCenter());
+            this.tagInputTexto.addCss(css.setDisplay("block"));
+            this.tagInputTexto.addCss(css.setMarginTop(10));
+            this.tagInputTexto.addCss(css.setWidth(500));
         }
 
         #endregion Métodos

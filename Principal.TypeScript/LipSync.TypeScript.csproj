@@ -24,12 +24,15 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="AppLs.ts" />
+    <TypeScriptCompile Include="ConfigLs.ts" />
+    <TypeScriptCompile Include="Fonema.ts" />
     <TypeScriptCompile Include="html\componente\AudioViewer.ts" />
     <TypeScriptCompile Include="html\componente\BotaoComando.ts" />
     <TypeScriptCompile Include="html\componente\Comando.ts" />
     <TypeScriptCompile Include="html\componente\PalavraContainer.ts" />
     <TypeScriptCompile Include="html\componente\TimeLine.ts" />
     <TypeScriptCompile Include="html\pagina\PagLs.ts" />
+    <TypeScriptCompile Include="KeyFrame.ts" />
     <TypeScriptCompile Include="typedefinition\wavesurfer.d.ts" />
   </ItemGroup>
   <ItemGroup>

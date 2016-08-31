@@ -32,7 +32,8 @@ module LipSyc
 
         private _booMover: boolean;
         private _booRedimensionar: boolean;
-        private _divResizeDireita: Div;
+        private _divResize: Div;
+        private _divTimeLine: TimeLine;
         private _intMarginLeftAnterior: number;
         private _intMover: number;
         private _intRedimensionar: number;
@@ -59,16 +60,26 @@ module LipSyc
             this._booRedimensionar = booRedimensionar;
         }
 
-        private get divResizeDireita(): Div
+        private get divResize(): Div
         {
-            if (this._divResizeDireita != null)
+            if (this._divResize != null)
             {
-                return this._divResizeDireita;
+                return this._divResize;
             }
 
-            this._divResizeDireita = new Div(this.strId + "_divResizeDireita");
+            this._divResize = new Div(this.strId + "_divResize");
 
-            return this._divResizeDireita;
+            return this._divResize;
+        }
+
+        private get divTimeLine(): TimeLine
+        {
+            return this._divTimeLine;
+        }
+
+        private set divTimeLine(divTimeLine: TimeLine)
+        {
+            this._divTimeLine = divTimeLine;
         }
 
         private get intMarginLeftAnterior(): number
@@ -125,16 +136,109 @@ module LipSyc
 
         // #region Construtores
 
-        constructor(intIndex: number, strPalavra: string)
+        constructor(intIndex: number, strPalavra: string, divTimeLine: TimeLine)
         {
             super("divPalavraContainer_" + intIndex.toString());
 
+            this.divTimeLine = divTimeLine;
             this.strPalavra = strPalavra;
         }
 
         // #endregion Construtores
 
         // #region Métodos
+
+        public gerarScript(arrObjKeyFrame: Array<KeyFrame>): void
+        {
+            var arrObjFonema = this.getArrObjFonema();
+
+            if (arrObjFonema.length < 1)
+            {
+                return;
+            }
+
+            var intFrameIn = this.getIntFrameIn();
+            var intFrameQuantidade = this.getIntFrameQuantidade();
+            var intFrameOut = (intFrameIn + intFrameQuantidade);
+
+            var intFrame = intFrameIn;
+
+            for (var i = 0; i < arrObjFonema.length; i++)
+            {
+                if (intFrame > intFrameOut)
+                {
+                    return;
+                }
+
+                var objFonema = arrObjFonema[i];
+
+                arrObjKeyFrame.push(new KeyFrame(intFrame, objFonema.intOffSetIndex));
+
+                intFrame += (intFrameQuantidade / arrObjFonema.length);
+            }
+
+            arrObjKeyFrame.push(new KeyFrame(intFrameOut, 0));
+        }
+
+        private getArrObjFonema(): Array<Fonema>
+        {
+            var arrObjFonemaResultado = new Array<Fonema>();
+
+            var objFonemaItem = new Fonema(-1, null);
+
+            for (var i = 0; i < this.strPalavra.length; i++)
+            {
+                for (var i2 = 0; i2 < ConfigLs.i.arrObjFonema.length; i2++)
+                {
+                    var objFonema = ConfigLs.i.arrObjFonema[i2];
+
+                    var intOrdem = this.strPalavra.indexOf(objFonema.strFonema, i);
+
+                    if (intOrdem < 0)
+                    {
+                        continue;
+                    }
+
+                    if (objFonema.intOffSetIndex == objFonemaItem.intOffSetIndex)
+                    {
+                        continue;
+                    }
+
+                    var objFonemaItem = new Fonema(objFonema.intOffSetIndex, objFonema.strFonema);
+
+                    objFonemaItem.intOrdem = intOrdem;
+
+                    arrObjFonemaResultado.push(objFonemaItem);
+
+                }
+            }
+
+            arrObjFonemaResultado.sort(function (a, b) { return (a.intOrdem > b.intOrdem) ? 1 : ((b.intOrdem > a.intOrdem) ? -1 : 0); });
+
+            return arrObjFonemaResultado;
+        }
+
+        private getIntFrameIn(): number
+        {
+            var intPosicao = this.jq[0].offsetLeft;
+
+            var intFrameQuantidade = this.divTimeLine.intFrameQuantidade;
+            var intParentWidth = this.jq.parent().width();
+
+            var intPixelPerFrame = (intParentWidth / intFrameQuantidade);
+
+            return (intPosicao / intPixelPerFrame);
+        }
+
+        private getIntFrameQuantidade(): number
+        {
+            var intFrameQuantidade = this.divTimeLine.intFrameQuantidade;
+            var intParentWidth = this.jq.parent().width();
+
+            var intPixelPerFrame = (intParentWidth / intFrameQuantidade);
+
+            return (this.jq.width() / intPixelPerFrame);
+        }
 
         protected montarLayoutFixo(strLayoutFixo: string): string
         {
@@ -147,7 +251,7 @@ module LipSyc
 
             strLayoutFixo = strLayoutFixo.replace("_palavra_conteudo", this.strPalavra);
             strLayoutFixo = strLayoutFixo.replace("_palabra_id", this.strId);
-            strLayoutFixo = strLayoutFixo.replace("_div_resize_direita_id", this.divResizeDireita.strId);
+            strLayoutFixo = strLayoutFixo.replace("_div_resize_id", this.divResize.strId);
 
             return strLayoutFixo;
         }
@@ -249,7 +353,7 @@ module LipSyc
             this.addEvtOnMouseMoveListener(this);
             this.addEvtOnMouseUpListener(this);
 
-            this.divResizeDireita.addEvtOnMouseDownListener(this);
+            this.divResize.addEvtOnMouseDownListener(this);
         }
 
         // #endregion Métodos
@@ -264,7 +368,7 @@ module LipSyc
                     this.processarOnMouseDown(arg);
                     return;
 
-                case this.divResizeDireita:
+                case this.divResize:
                     this.processarOnMouseDownRedimensionar(arg);
                     return;
             }

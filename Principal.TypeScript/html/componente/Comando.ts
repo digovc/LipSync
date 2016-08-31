@@ -31,6 +31,7 @@ module LipSyc
         private _btnFinal: BotaoComando;
         private _btnInicio: BotaoComando;
         private _btnPlay: BotaoComando;
+        private _btnScript: BotaoComando;
         private _divInputAudio: Input;
         private _pagLs: PagLs;
 
@@ -94,6 +95,18 @@ module LipSyc
             return this._btnPlay;
         }
 
+        private get btnScript(): BotaoComando
+        {
+            if (this._btnScript != null)
+            {
+                return this._btnScript;
+            }
+
+            this._btnScript = new BotaoComando("btnScript");
+
+            return this._btnScript;
+        }
+
         private get divInputAudio(): Input
         {
             if (this._divInputAudio != null)
@@ -155,6 +168,11 @@ module LipSyc
             this.pagLs.divAudioViewer.carregarAudio(fleAudio);
         }
 
+        private gerarScript(): void
+        {
+            this.pagLs.gerarScript();
+        }
+
         private posicionarFinal(): void
         {
             this.pagLs.divAudioViewer.posicionarFinal();
@@ -184,6 +202,7 @@ module LipSyc
             this.btnFinal.addEvtOnClickListener(this);
             this.btnInicio.addEvtOnClickListener(this);
             this.btnPlay.addEvtOnClickListener(this);
+            this.btnScript.addEvtOnClickListener(this);
 
             this.divInputAudio.addEvtOnValorAlteradoListener(this);
         }
@@ -214,6 +233,10 @@ module LipSyc
 
                 case this.btnPlay:
                     this.reproduzirParar();
+                    return;
+
+                case this.btnScript:
+                    this.gerarScript();
                     return;
             }
         }

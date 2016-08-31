@@ -12,20 +12,20 @@ namespace LipSync.Html.Componente
 
         #region Atributos
 
-        private Div _divResizeDireita;
+        private Div _divResize;
 
-        private Div divResizeDireita
+        private Div divResize
         {
             get
             {
-                if (_divResizeDireita != null)
+                if (_divResize != null)
                 {
-                    return _divResizeDireita;
+                    return _divResize;
                 }
 
-                _divResizeDireita = new Div();
+                _divResize = new Div();
 
-                return _divResizeDireita;
+                return _divResize;
             }
         }
 
@@ -51,14 +51,14 @@ namespace LipSync.Html.Componente
             this.strConteudo = "_palavra_conteudo";
             this.strId = "_palabra_id";
 
-            this.divResizeDireita.strId = "_div_resize_direita_id";
+            this.divResize.strId = "_div_resize_id";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            this.divResizeDireita.setPai(this);
+            this.divResize.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
@@ -77,15 +77,15 @@ namespace LipSync.Html.Componente
             this.addCss(css.setTextAlign("center"));
             this.addCss(css.setWidth(50));
 
-            this.divResizeDireita.addCss(css.setBackgroundColor("#dbdbdb"));
-            this.divResizeDireita.addCss(css.setBorderLeft(1, "solid", "gray"));
-            this.divResizeDireita.addCss(css.setCursor("e-resize"));
-            this.divResizeDireita.addCss(css.setFloat("right"));
-            this.divResizeDireita.addCss(css.setHeight(50));
-            this.divResizeDireita.addCss(css.setPosition("absolute"));
-            this.divResizeDireita.addCss(css.setRight(0));
-            this.divResizeDireita.addCss(css.setTop(0));
-            this.divResizeDireita.addCss(css.setWidth(10));
+            this.divResize.addCss(css.setBackgroundColor("#dbdbdb"));
+            this.divResize.addCss(css.setBorderLeft(1, "solid", "gray"));
+            this.divResize.addCss(css.setCursor("e-resize"));
+            this.divResize.addCss(css.setFloat("right"));
+            this.divResize.addCss(css.setHeight(50));
+            this.divResize.addCss(css.setPosition("absolute"));
+            this.divResize.addCss(css.setRight(0));
+            this.divResize.addCss(css.setTop(0));
+            this.divResize.addCss(css.setWidth(10));
         }
 
         #endregion Métodos

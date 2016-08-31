@@ -110,6 +110,23 @@ namespace LipSync.Html.Componente
             }
         }
 
+        private BotaoComando _btnScript;
+
+        private BotaoComando btnScript
+        {
+            get
+            {
+                if (_btnScript != null)
+                {
+                    return _btnScript;
+                }
+
+                _btnScript = new BotaoComando();
+
+                return _btnScript;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -146,6 +163,9 @@ namespace LipSync.Html.Componente
             this.btnPlay.strId = "btnPlay";
             this.btnPlay.strTitle = "Reproduzir/parar";
 
+            this.btnScript.strId = "btnScript";
+            this.btnScript.strTitle = "Gerar script";
+
             this.divInputAudio.strId = "divInputAudio";
             this.divInputAudio.enmTipo = Input.EnmTipo.FILE;
         }
@@ -160,6 +180,7 @@ namespace LipSync.Html.Componente
             this.btnPlay.setPai(this);
             this.btnFinal.setPai(this);
             this.btnAddTexto.setPai(this);
+            this.btnScript.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
@@ -169,7 +190,7 @@ namespace LipSync.Html.Componente
             this.addCss(css.setBorderBottom(1, "solid", "gray"));
             this.addCss(css.setCenter());
             this.addCss(css.setHeight(50));
-            this.addCss(css.setWidth(250));
+            this.addCss(css.setWidth(300));
 
             this.divInputAudio.addCss(css.setDisplay("none"));
         }

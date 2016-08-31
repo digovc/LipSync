@@ -21,6 +21,8 @@ module LipSyc
         // #region Atributos
 
         private _arrObjPalavraContainer: Array<PalavraContainer>;
+        private _intFrameQuantidade: number;
+        private _pagLs: PagLs = null;
 
         private get arrObjPalavraContainer(): Array<PalavraContainer>
         {
@@ -34,13 +36,37 @@ module LipSyc
             return this._arrObjPalavraContainer;
         }
 
+        public get intFrameQuantidade(): number
+        {
+            if (this._intFrameQuantidade != null)
+            {
+                return this._intFrameQuantidade;
+            }
+
+            this._intFrameQuantidade = this.getIntFrameQuantidade();
+
+            return this._intFrameQuantidade;
+        }
+
+        public get pagLs(): PagLs
+        {
+            return this._pagLs;
+        }
+
+        public set pagLs(pagLs: PagLs)
+        {
+            this._pagLs = pagLs;
+        }
+
         // #endregion Atributos
 
         // #region Construtores
 
-        constructor()
+        constructor(pagLs: PagLs)
         {
             super("divTimeLine");
+
+            this.pagLs = pagLs;
         }
 
         // #endregion Construtores
@@ -61,11 +87,65 @@ module LipSyc
                 return;
             }
 
-            var objPalavraContainer = new PalavraContainer(this.arrObjPalavraContainer.length, strPalavra);
+            var objPalavraContainer = new PalavraContainer(this.arrObjPalavraContainer.length, strPalavra, this);
 
             this.arrObjPalavraContainer.push(objPalavraContainer);
 
             this.addObjPalavraContainer(objPalavraContainer);
+        }
+
+        public gerarScript(): void
+        {
+            if (this.arrObjPalavraContainer.length < 1)
+            {
+                return;
+            }
+
+            var arrObjKeyFrame = new Array<KeyFrame>();
+
+            for (var i = 0; i < this.arrObjPalavraContainer.length; i++)
+            {
+                var objPalavraContainer = this.arrObjPalavraContainer[i];
+
+                objPalavraContainer.gerarScript(arrObjKeyFrame);
+            }
+
+            if (arrObjKeyFrame.length < 1)
+            {
+                return;
+            }
+
+            var strScript = this.getStrScript(arrObjKeyFrame);
+
+            this.pagLs.tagInputTexto.strValor = strScript;
+        }
+
+        private getIntFrameQuantidade(): number
+        {
+            return (ConfigLs.i.intFps * this.pagLs.divAudioViewer.intDuracao);
+        }
+
+        private getStrScript(arrObjKeyFrame: Array<KeyFrame>): string
+        {
+            var strResultado = "import bpy\n\n";
+
+            var intOffSetUltimo = -1;
+
+            for (var i = 0; i < arrObjKeyFrame.length; i++)
+            {
+                var objKeyFrame = arrObjKeyFrame[i];
+
+                if (intOffSetUltimo == objKeyFrame.intOffSetIndex)
+                {
+                    continue;
+                }
+
+                strResultado = strResultado.concat(objKeyFrame.strScript + "\n");
+
+                intOffSetUltimo = objKeyFrame.intOffSetIndex;
+            }
+
+            return strResultado;
         }
 
         // #endregion Métodos
