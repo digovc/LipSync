@@ -1,4 +1,7 @@
 ﻿/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+/// <reference path="../../../Web.TypeScript/html/Div.ts"/>
+/// <reference path="../../../Web.TypeScript/OnClickListener.ts"/>
+/// <reference path="../../../Web.TypeScript/OnKeyUpListener.ts"/>
 /// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module LipSyc
@@ -6,6 +9,9 @@ module LipSyc
     // #region Importações
 
     import ComponenteHtml = NetZ_Web.ComponenteHtml;
+    import Div = NetZ_Web.Div;
+    import OnClickListener = NetZ_Web.OnClickListener;
+    import OnKeyUpListener = NetZ_Web.OnKeyUpListener;
     import Utils = NetZ_Web.Utils;
 
     // #endregion Importações
@@ -13,27 +19,40 @@ module LipSyc
     // #region Enumerados
     // #endregion Enumerados
 
-    export class TimeLine extends ComponenteHtml
+    export class TimeLine extends ComponenteHtml implements OnClickListener, OnKeyUpListener
     {
         // #region Constantes
         // #endregion Constantes
 
         // #region Atributos
 
-        private _arrObjPalavraContainer: Array<PalavraContainer>;
+        private _arrObjKeyFrame: Array<KeyFrame>;
+        private _divFonemaAtual: Div;
         private _intFrameQuantidade: number;
         private _pagLs: PagLs = null;
 
-        private get arrObjPalavraContainer(): Array<PalavraContainer>
+        private get arrObjKeyFrame(): Array<KeyFrame>
         {
-            if (this._arrObjPalavraContainer != null)
+            if (this._arrObjKeyFrame != null)
             {
-                return this._arrObjPalavraContainer;
+                return this._arrObjKeyFrame;
             }
 
-            this._arrObjPalavraContainer = new Array<PalavraContainer>();
+            this._arrObjKeyFrame = new Array<KeyFrame>();
 
-            return this._arrObjPalavraContainer;
+            return this._arrObjKeyFrame;
+        }
+
+        private get divFonemaAtual(): Div
+        {
+            if (this._divFonemaAtual != null)
+            {
+                return this._divFonemaAtual;
+            }
+
+            this._divFonemaAtual = new Div("divFonemaAtual");
+
+            return this._divFonemaAtual;
         }
 
         public get intFrameQuantidade(): number
@@ -73,51 +92,45 @@ module LipSyc
 
         // #region Métodos
 
-        private addObjPalavraContainer(objPalavraContainer: PalavraContainer): void
+        private addObjKeyFrame(arg: JQueryEventObject): void
         {
-            this.jq.append(objPalavraContainer.strLayoutFixo);
+            var objKeyFrame = new KeyFrame(this.arrObjKeyFrame.length);
 
-            objPalavraContainer.iniciar();
+            objKeyFrame.divTimeLine = this;
+            objKeyFrame.intParentOffSet = arg.clientX;
+            objKeyFrame.strFonema = this.divFonemaAtual.strConteudo;
+
+            this.jq.append(objKeyFrame.strLayoutFixo);
+
+            this.arrObjKeyFrame.push(objKeyFrame);
+
+            objKeyFrame.iniciar();
         }
 
-        public addPalavra(strPalavra: string): void
+        private alterarFonema(key: any): void
         {
-            if (Utils.getBooStrVazia(strPalavra))
+            switch (key)
             {
-                return;
+                case "a":
+                case "e":
+                case "i":
+                case "o":
+                case "u":
+                    this.divFonemaAtual.strConteudo = (key as string).toString().toUpperCase();
+                    return;
             }
-
-            var objPalavraContainer = new PalavraContainer(this.arrObjPalavraContainer.length, strPalavra, this);
-
-            this.arrObjPalavraContainer.push(objPalavraContainer);
-
-            this.addObjPalavraContainer(objPalavraContainer);
         }
 
         public gerarScript(): void
         {
-            if (this.arrObjPalavraContainer.length < 1)
+            if (this.arrObjKeyFrame.length < 1)
             {
                 return;
             }
 
-            var arrObjKeyFrame = new Array<KeyFrame>();
+            var strScript = this.getStrScript();
 
-            for (var i = 0; i < this.arrObjPalavraContainer.length; i++)
-            {
-                var objPalavraContainer = this.arrObjPalavraContainer[i];
-
-                objPalavraContainer.gerarScript(arrObjKeyFrame);
-            }
-
-            if (arrObjKeyFrame.length < 1)
-            {
-                return;
-            }
-
-            var strScript = this.getStrScript(arrObjKeyFrame);
-
-            this.pagLs.tagInputTexto.strValor = strScript;
+            this.pagLs.tagInputScript.strValor = strScript;
         }
 
         private getIntFrameQuantidade(): number
@@ -125,20 +138,15 @@ module LipSyc
             return (ConfigLs.i.intFps * this.pagLs.divAudioViewer.intDuracao);
         }
 
-        private getStrScript(arrObjKeyFrame: Array<KeyFrame>): string
+        private getStrScript(): string
         {
             var strResultado = "import bpy\n\n";
 
             var intOffSetUltimo = -1;
 
-            for (var i = 0; i < arrObjKeyFrame.length; i++)
+            for (var i = 0; i < this.arrObjKeyFrame.length; i++)
             {
-                var objKeyFrame = arrObjKeyFrame[i];
-
-                if (intOffSetUltimo == objKeyFrame.intOffSetIndex)
-                {
-                    continue;
-                }
+                var objKeyFrame = this.arrObjKeyFrame[i];
 
                 strResultado = strResultado.concat(objKeyFrame.strScript + "\n");
 
@@ -148,9 +156,39 @@ module LipSyc
             return strResultado;
         }
 
+        protected setEventos(): void
+        {
+            super.setEventos();
+
+            this.addEvtOnClickListener(this);
+
+            this.pagLs.addEvtOnKeyUpListener(this);
+        }
+
         // #endregion Métodos
 
         // #region Eventos
+
+        public onClick(objSender: Object, arg: JQueryEventObject): void
+        {
+            switch (objSender)
+            {
+                case this:
+                    this.addObjKeyFrame(arg);
+                    return;
+            }
+        }
+
+        public onKeyUp(objSender: Object, arg: JQueryKeyEventObject): void
+        {
+            switch (objSender)
+            {
+                case this.pagLs:
+                    this.alterarFonema(arg.key);
+                    return;
+            }
+        }
+
         // #endregion Eventos
     }
 }

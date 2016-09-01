@@ -39,7 +39,7 @@ namespace LipSync.Html.Componente
             base.setCss(css);
 
             this.addCss(css.setBorderBottom(1, "solid", "gray"));
-            this.addCss(css.setMinHeight(125));
+            this.addCss(css.setHeight(125));
         }
 
         #endregion Métodos

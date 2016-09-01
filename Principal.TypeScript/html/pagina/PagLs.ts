@@ -25,7 +25,7 @@ module LipSyc
         private _divAudioViewer: AudioViewer;
         private _divComando: Comando;
         private _divTimeLine: TimeLine;
-        private _tagInputTexto: Input;
+        private _tagInputScript: Input;
 
         public get divAudioViewer(): AudioViewer
         {
@@ -63,16 +63,16 @@ module LipSyc
             return this._divTimeLine;
         }
 
-        public get tagInputTexto(): Input
+        public get tagInputScript(): Input
         {
-            if (this._tagInputTexto != null)
+            if (this._tagInputScript != null)
             {
-                return this._tagInputTexto;
+                return this._tagInputScript;
             }
 
-            this._tagInputTexto = new Input("tagInputTexto");
+            this._tagInputScript = new Input("tagInputScript");
 
-            return this._tagInputTexto;
+            return this._tagInputScript;
         }
 
         // #endregion Atributos
@@ -81,23 +81,6 @@ module LipSyc
         // #endregion Construtores
 
         // #region Métodos
-
-        public addTexto(): void
-        {
-            if (Utils.getBooStrVazia(this.tagInputTexto.strValor))
-            {
-                return;
-            }
-
-            var arrStrPalavra = this.tagInputTexto.strValor.split(" ");
-
-            if (arrStrPalavra == null)
-            {
-                return;
-            }
-
-            arrStrPalavra.forEach((strPalavra) => { this.divTimeLine.addPalavra(strPalavra); });
-        }
 
         public gerarScript(): void
         {
@@ -111,7 +94,7 @@ module LipSyc
             this.divAudioViewer.iniciar();
             this.divComando.iniciar();
             this.divTimeLine.iniciar();
-            this.tagInputTexto.iniciar();
+            this.tagInputScript.iniciar();
         }
 
         // #endregion Métodos

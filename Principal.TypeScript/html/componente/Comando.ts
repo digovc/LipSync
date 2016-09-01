@@ -26,7 +26,6 @@ module LipSyc
 
         // #region Atributos
 
-        private _btnAddTexto: BotaoComando;
         private _btnAudioSelecionar: BotaoComando;
         private _btnFinal: BotaoComando;
         private _btnInicio: BotaoComando;
@@ -34,18 +33,6 @@ module LipSyc
         private _btnScript: BotaoComando;
         private _divInputAudio: Input;
         private _pagLs: PagLs;
-
-        private get btnAddTexto(): BotaoComando
-        {
-            if (this._btnAddTexto != null)
-            {
-                return this._btnAddTexto;
-            }
-
-            this._btnAddTexto = new BotaoComando("btnAddTexto");
-
-            return this._btnAddTexto;
-        }
 
         private get btnAudioSelecionar(): BotaoComando
         {
@@ -144,11 +131,6 @@ module LipSyc
 
         // #region Métodos
 
-        private addTexto(): void
-        {
-            this.pagLs.addTexto();
-        }
-
         private carregarAudio(): void
         {
             var elmInput = (this.divInputAudio.jq[0] as HTMLInputElement);
@@ -197,7 +179,6 @@ module LipSyc
         {
             super.setEventos();
 
-            this.btnAddTexto.addEvtOnClickListener(this);
             this.btnAudioSelecionar.addEvtOnClickListener(this);
             this.btnFinal.addEvtOnClickListener(this);
             this.btnInicio.addEvtOnClickListener(this);
@@ -215,10 +196,6 @@ module LipSyc
         {
             switch (objSender)
             {
-                case this.btnAddTexto:
-                    this.addTexto();
-                    return;
-
                 case this.btnAudioSelecionar:
                     this.selecionarAudio();
                     return;

@@ -12,28 +12,11 @@ namespace LipSync.Html.Componente
 
         #region Atributos
 
-        private BotaoComando _btnAddTexto;
         private BotaoComando _btnAudioSelecionar;
         private BotaoComando _btnFinal;
         private BotaoComando _btnInicio;
         private BotaoComando _btnPlay;
-
         private Input _divInputAudio;
-
-        private BotaoComando btnAddTexto
-        {
-            get
-            {
-                if (_btnAddTexto != null)
-                {
-                    return _btnAddTexto;
-                }
-
-                _btnAddTexto = new BotaoComando();
-
-                return _btnAddTexto;
-            }
-        }
 
         private BotaoComando btnAudioSelecionar
         {
@@ -148,9 +131,6 @@ namespace LipSync.Html.Componente
 
             this.strId = "divComando";
 
-            this.btnAddTexto.strId = "btnAddTexto";
-            this.btnAddTexto.strTitle = "Adicionar texto";
-
             this.btnAudioSelecionar.strId = "btnAudioSelecionar";
             this.btnAudioSelecionar.strTitle = "Selecionar audio";
 
@@ -179,7 +159,6 @@ namespace LipSync.Html.Componente
             this.btnInicio.setPai(this);
             this.btnPlay.setPai(this);
             this.btnFinal.setPai(this);
-            this.btnAddTexto.setPai(this);
             this.btnScript.setPai(this);
         }
 
@@ -190,7 +169,7 @@ namespace LipSync.Html.Componente
             this.addCss(css.setBorderBottom(1, "solid", "gray"));
             this.addCss(css.setCenter());
             this.addCss(css.setHeight(50));
-            this.addCss(css.setWidth(300));
+            this.addCss(css.setWidth(250));
 
             this.divInputAudio.addCss(css.setDisplay("none"));
         }

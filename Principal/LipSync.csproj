@@ -50,7 +50,7 @@
     <Compile Include="Html\Componente\AudioViewer.cs" />
     <Compile Include="Html\Componente\BotaoComando.cs" />
     <Compile Include="Html\Componente\Comando.cs" />
-    <Compile Include="Html\Componente\PalavraContainer.cs" />
+    <Compile Include="Html\Componente\KeyFrame.cs" />
     <Compile Include="Html\Componente\TimeLine.cs" />
     <Compile Include="Html\Pagina\PagLs.cs" />
     <Compile Include="Program.cs" />

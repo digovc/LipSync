@@ -16,7 +16,7 @@ namespace LipSync.Html.Pagina
         private AudioViewer _divAudioViewer;
         private Comando _divComando;
         private TimeLine _divTimeLine;
-        private Input _tagInputTexto;
+        private Input _tagInputScript;
 
         private AudioViewer divAudioViewer
         {
@@ -63,18 +63,18 @@ namespace LipSync.Html.Pagina
             }
         }
 
-        private Input tagInputTexto
+        private Input tagInputScript
         {
             get
             {
-                if (_tagInputTexto != null)
+                if (_tagInputScript != null)
                 {
-                    return _tagInputTexto;
+                    return _tagInputScript;
                 }
 
-                _tagInputTexto = new Input();
+                _tagInputScript = new Input();
 
-                return _tagInputTexto;
+                return _tagInputScript;
             }
         }
 
@@ -97,27 +97,26 @@ namespace LipSync.Html.Pagina
             lstJs.Add(new JavaScriptTag("/res/js/lib/wavesurfer.min.js", 100));
 
             lstJs.Add(new JavaScriptTag(typeof(AppLs), 200));
+            lstJs.Add(new JavaScriptTag(typeof(KeyFrame), 201));
             lstJs.Add(new JavaScriptTag(typeof(PagLs), 201));
-            lstJs.Add(new JavaScriptTag(typeof(PalavraContainer), 201));
 
             lstJs.Add(new JavaScriptTag("/res/js/lipsync/ConfigLs.js", 201));
             lstJs.Add(new JavaScriptTag("/res/js/lipsync/Fonema.js", 201));
-            lstJs.Add(new JavaScriptTag("/res/js/lipsync/KeyFrame.js", 201));
         }
 
         protected override void addLayoutFixo()
         {
             base.addLayoutFixo();
 
-            this.addLayoutFixo(typeof(PalavraContainer));
+            this.addLayoutFixo(typeof(KeyFrame));
         }
 
         protected override void inicializar()
         {
             base.inicializar();
 
-            this.tagInputTexto.enmTipo = Input.EnmTipo.TEXT_AREA;
-            this.tagInputTexto.strId = "tagInputTexto";
+            this.tagInputScript.enmTipo = Input.EnmTipo.TEXT_AREA;
+            this.tagInputScript.strId = "tagInputScript";
         }
 
         protected override void montarLayout()
@@ -127,18 +126,18 @@ namespace LipSync.Html.Pagina
             this.divAudioViewer.setPai(this);
             this.divTimeLine.setPai(this);
             this.divComando.setPai(this);
-            this.tagInputTexto.setPai(this);
+            this.tagInputScript.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.tagInputTexto.addCss(css.setBorderRadius(10));
-            this.tagInputTexto.addCss(css.setCenter());
-            this.tagInputTexto.addCss(css.setDisplay("block"));
-            this.tagInputTexto.addCss(css.setMarginTop(10));
-            this.tagInputTexto.addCss(css.setWidth(500));
+            this.tagInputScript.addCss(css.setBorderRadius(10));
+            this.tagInputScript.addCss(css.setCenter());
+            this.tagInputScript.addCss(css.setDisplay("block"));
+            this.tagInputScript.addCss(css.setMarginTop(10));
+            this.tagInputScript.addCss(css.setWidth(500));
         }
 
         #endregion Métodos
