@@ -22,10 +22,23 @@ module LipSyc
 
         // #region Atributos
 
+        protected static _i: PagLs;
+
+        public static get i(): PagLs
+        {
+            if (PagLs._i != null)
+            {
+                return PagLs._i;
+            }
+
+            PagLs._i = new PagLs();
+
+            return PagLs._i;
+        }
+
         private _divAudioViewer: AudioViewer;
         private _divComando: Comando;
         private _divTimeLine: TimeLine;
-        private _tagInputScript: Input;
 
         public get divAudioViewer(): AudioViewer
         {
@@ -39,7 +52,7 @@ module LipSyc
             return this._divAudioViewer;
         }
 
-        private get divComando(): Comando
+        public get divComando(): Comando
         {
             if (this._divComando != null)
             {
@@ -51,7 +64,7 @@ module LipSyc
             return this._divComando;
         }
 
-        private get divTimeLine(): TimeLine
+        public get divTimeLine(): TimeLine
         {
             if (this._divTimeLine != null)
             {
@@ -61,18 +74,6 @@ module LipSyc
             this._divTimeLine = new TimeLine(this);
 
             return this._divTimeLine;
-        }
-
-        public get tagInputScript(): Input
-        {
-            if (this._tagInputScript != null)
-            {
-                return this._tagInputScript;
-            }
-
-            this._tagInputScript = new Input("tagInputScript");
-
-            return this._tagInputScript;
         }
 
         // #endregion Atributos
@@ -94,12 +95,37 @@ module LipSyc
             this.divAudioViewer.iniciar();
             this.divComando.iniciar();
             this.divTimeLine.iniciar();
-            this.tagInputScript.iniciar();
+        }
+
+        protected setEventos(): void
+        {
+            super.setEventos();
+
+            document.body.addEventListener("mousewheel", ((arg: any) => { this.onMouseWheel(arg); }));
         }
 
         // #endregion Métodos
 
         // #region Eventos
+
+        private onMouseWheel(arg: any): void
+        {
+            if ((document.body as any).doScroll)
+            {
+                (document.body as any).doScroll(arg.wheelDelta > 0 ? "left" : "right");
+            }
+            else if ((arg.wheelDelta || arg.detail) > 0)
+            {
+                document.body.scrollLeft -= 10;
+            }
+            else
+            {
+                document.body.scrollLeft += 10;
+            }
+
+            return;
+        }
+
         // #endregion Eventos
     }
 }

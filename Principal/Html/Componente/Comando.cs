@@ -169,7 +169,7 @@ namespace LipSync.Html.Componente
             this.addCss(css.setBorderBottom(1, "solid", "gray"));
             this.addCss(css.setCenter());
             this.addCss(css.setHeight(50));
-            this.addCss(css.setWidth(250));
+            this.addCss(css.setPosition("fixed"));
 
             this.divInputAudio.addCss(css.setDisplay("none"));
         }

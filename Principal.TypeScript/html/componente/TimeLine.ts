@@ -97,7 +97,7 @@ module LipSyc
             var objKeyFrame = new KeyFrame(this.arrObjKeyFrame.length);
 
             objKeyFrame.divTimeLine = this;
-            objKeyFrame.intParentOffSet = arg.clientX;
+            objKeyFrame.intParentOffSet = arg.pageX;
             objKeyFrame.strFonema = this.divFonemaAtual.strConteudo;
 
             this.jq.append(objKeyFrame.strLayoutFixo);
@@ -109,15 +109,31 @@ module LipSyc
 
         private alterarFonema(key: any): void
         {
-            switch (key)
+            if (ConfigLs.i.arrObjFonema.length < 1)
             {
-                case "a":
-                case "e":
-                case "i":
-                case "o":
-                case "u":
-                    this.divFonemaAtual.strConteudo = (key as string).toString().toUpperCase();
-                    return;
+                return;
+            }
+
+            for (var i = 0; i < ConfigLs.i.arrObjFonema.length; i++)
+            {
+                var objFonema = ConfigLs.i.arrObjFonema[i];
+
+                if (objFonema == null)
+                {
+                    continue;
+                }
+
+                if (Utils.getBooStrVazia(objFonema.strFonema))
+                {
+                    continue;
+                }
+
+                if (objFonema.strFonema.toLowerCase() != (key as string).toLowerCase())
+                {
+                    continue;
+                }
+
+                this.divFonemaAtual.strConteudo = objFonema.strFonema.toUpperCase();
             }
         }
 
@@ -130,7 +146,7 @@ module LipSyc
 
             var strScript = this.getStrScript();
 
-            this.pagLs.tagInputScript.strValor = strScript;
+            this.salvarScript(strScript);
         }
 
         private getIntFrameQuantidade(): number
@@ -154,6 +170,45 @@ module LipSyc
             }
 
             return strResultado;
+        }
+
+        private salvarScript(strScript: string): void
+        {
+            if (Utils.getBooStrVazia(strScript))
+            {
+                return;
+            }
+
+            var strFileName = PagLs.i.divAudioViewer.strFileName;
+
+            if (Utils.getBooStrVazia(strFileName))
+            {
+                return;
+            }
+
+            if (strFileName.length < 5)
+            {
+                return;
+            }
+
+            strFileName = strFileName.substr(0, (strFileName.length - 4)).concat(".py");
+
+            var elmA: any = document.createElement("a");
+
+            document.body.appendChild(elmA);
+
+            elmA.style = "display: none";
+
+            var data = strScript;
+
+            var blob = new Blob([data], { type: "text/plain" }), url = window.URL.createObjectURL(blob);
+
+            elmA.href = url;
+            elmA.download = strFileName;
+
+            elmA.click();
+
+            window.URL.revokeObjectURL(url);
         }
 
         protected setEventos(): void

@@ -21,6 +21,7 @@ module LipSyc
 
         private _intTamanhoSegundo: number;
         private _objWaveSurfer: WaveSurfer;
+        private _strFileName: string;
 
         public get intDuracao(): number
         {
@@ -46,6 +47,16 @@ module LipSyc
             return this._objWaveSurfer;
         }
 
+        public get strFileName(): string
+        {
+            return this._strFileName;
+        }
+
+        public set strFileName(strFileName: string)
+        {
+            this._strFileName = strFileName;
+        }
+
         // #endregion Atributos
 
         // #region Construtores
@@ -66,6 +77,8 @@ module LipSyc
                 return;
             }
 
+            this.strFileName = fleAudio.name;
+
             this.objWaveSurfer.loadBlob(fleAudio);
         }
 
@@ -77,12 +90,26 @@ module LipSyc
         private getObjWaveSurfer(): WaveSurfer
         {
             var objParams: WaveSurfer.params = {
+                audioRate: 0.65,
                 container: this.strSelector,
+                fillParent: false,
+                barWidth: 2.5,
             };
 
             var objWaveSurferResultado = WaveSurfer.create(objParams);
 
+            objWaveSurferResultado.on("ready", (arg: any) => { this.onObjWaveSurferREady(arg); });
+
             return objWaveSurferResultado;
+        }
+
+        private inicializarObjWaveSurfer(): void
+        {
+            this.objWaveSurfer.zoom(1000);
+
+            PagLs.i.divTimeLine.jq.width(this.jq.find("canvas").width());
+
+            this.jq.width(this.jq.find("canvas").width());
         }
 
         public posicionarFinal(): void
@@ -103,6 +130,12 @@ module LipSyc
         // #endregion Métodos
 
         // #region Eventos
+
+        private onObjWaveSurferREady(arg: any): void
+        {
+            this.inicializarObjWaveSurfer();
+        }
+
         // #endregion Eventos
     }
 }

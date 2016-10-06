@@ -29,6 +29,7 @@
 
         private _arrObjFonema: Array<Fonema>;
         private _intFps: number = 24;
+        private _intFrameInicial: number = 0;
 
         public get arrObjFonema(): Array<Fonema>
         {
@@ -52,6 +53,16 @@
             this._intFps = intFps;
         }
 
+        public get intFrameInicial(): number
+        {
+            return this._intFrameInicial;
+        }
+
+        public set intFrameInicial(intFrameInicial: number)
+        {
+            this._intFrameInicial = intFrameInicial;
+        }
+
         // #endregion Atributos
 
         // #region Construtores
@@ -63,11 +74,12 @@
         {
             var arrObjFonemaResultado = new Array<Fonema>();
 
+            arrObjFonemaResultado.push(new Fonema(0, "n"));
             arrObjFonemaResultado.push(new Fonema(1, "a"));
             arrObjFonemaResultado.push(new Fonema(2, "e"));
-            arrObjFonemaResultado.push(new Fonema(2, "i"));
-            arrObjFonemaResultado.push(new Fonema(2, "o"));
-            arrObjFonemaResultado.push(new Fonema(2, "u"));
+            arrObjFonemaResultado.push(new Fonema(3, "i"));
+            arrObjFonemaResultado.push(new Fonema(4, "o"));
+            arrObjFonemaResultado.push(new Fonema(5, "u"));
 
             return arrObjFonemaResultado;
         }

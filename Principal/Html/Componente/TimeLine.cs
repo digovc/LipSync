@@ -68,7 +68,7 @@ namespace LipSync.Html.Componente
             this.addCss(css.setBorderBottom(1, "solid", "gray"));
             this.addCss(css.setHeight(153));
             this.addCss(css.setHeight(50));
-            this.addCss(css.setMarginTop(-126));
+            this.addCss(css.setMarginTop(-62));
             this.addCss(css.setPosition("relative"));
 
             this.divFonemaAtual.addCss(css.setBorder(1, "solid",  "gray"));
@@ -76,6 +76,8 @@ namespace LipSync.Html.Componente
             this.divFonemaAtual.addCss(css.setFloat("left"));
             this.divFonemaAtual.addCss(css.setMargin(10));
             this.divFonemaAtual.addCss(css.setPadding(10));
+            this.divFonemaAtual.addCss(css.setPosition("fixed"));
+            this.divFonemaAtual.addCss(css.setTop(125));
         }
 
         #endregion Métodos

@@ -3,6 +3,7 @@
 /// <reference path="../../../Web.TypeScript/OnClickListener.ts"/>
 /// <reference path="../../../Web.TypeScript/OnValorAlteradoArg.ts"/>
 /// <reference path="../../../Web.TypeScript/OnValorAlteradoListener.ts"/>
+/// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module LipSyc
 {
@@ -13,6 +14,7 @@ module LipSyc
     import OnClickListener = NetZ_Web.OnClickListener;
     import OnValorAlteradoArg = NetZ_Web.OnValorAlteradoArg;
     import OnValorAlteradoListener = NetZ_Web.OnValorAlteradoListener;
+    import Utils = NetZ_Web.Utils;
 
     // #endregion Importações
 

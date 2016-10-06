@@ -36,20 +36,6 @@ module LipSyc
             return AppLs._i;
         }
 
-        private _pagLs: PagLs;
-
-        private get pagLs(): PagLs
-        {
-            if (this._pagLs != null)
-            {
-                return this._pagLs;
-            }
-
-            this._pagLs = new PagLs();
-
-            return this._pagLs;
-        }
-
         // #endregion Atributos
 
         // #region Construtores
@@ -61,7 +47,7 @@ module LipSyc
         {
             super.inicializar();
 
-            this.pagLs.iniciar();
+            PagLs.i.iniciar();
         }
 
         // #endregion Métodos

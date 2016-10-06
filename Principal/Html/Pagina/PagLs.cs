@@ -1,7 +1,6 @@
 ﻿using LipSync.Html.Componente;
 using NetZ.Web.Html;
 using NetZ.Web.Html.Pagina;
-using NetZ.Web.Server.Arquivo.Css;
 
 namespace LipSync.Html.Pagina
 {
@@ -16,7 +15,6 @@ namespace LipSync.Html.Pagina
         private AudioViewer _divAudioViewer;
         private Comando _divComando;
         private TimeLine _divTimeLine;
-        private Input _tagInputScript;
 
         private AudioViewer divAudioViewer
         {
@@ -63,21 +61,6 @@ namespace LipSync.Html.Pagina
             }
         }
 
-        private Input tagInputScript
-        {
-            get
-            {
-                if (_tagInputScript != null)
-                {
-                    return _tagInputScript;
-                }
-
-                _tagInputScript = new Input();
-
-                return _tagInputScript;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
@@ -111,14 +94,6 @@ namespace LipSync.Html.Pagina
             this.addLayoutFixo(typeof(KeyFrame));
         }
 
-        protected override void inicializar()
-        {
-            base.inicializar();
-
-            this.tagInputScript.enmTipo = Input.EnmTipo.TEXT_AREA;
-            this.tagInputScript.strId = "tagInputScript";
-        }
-
         protected override void montarLayout()
         {
             base.montarLayout();
@@ -126,18 +101,6 @@ namespace LipSync.Html.Pagina
             this.divAudioViewer.setPai(this);
             this.divTimeLine.setPai(this);
             this.divComando.setPai(this);
-            this.tagInputScript.setPai(this);
-        }
-
-        protected override void setCss(CssArquivo css)
-        {
-            base.setCss(css);
-
-            this.tagInputScript.addCss(css.setBorderRadius(10));
-            this.tagInputScript.addCss(css.setCenter());
-            this.tagInputScript.addCss(css.setDisplay("block"));
-            this.tagInputScript.addCss(css.setMarginTop(10));
-            this.tagInputScript.addCss(css.setWidth(500));
         }
 
         #endregion Métodos

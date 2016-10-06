@@ -2,31 +2,32 @@ declare namespace WaveSurfer
 {
     interface params
     {
-        height?: number;
-        waveColor?: string;
-        progressColor?: string;
+        audioContext?: any;
+        audioRate?: number;
+        autoCenter?: boolean;
+        backend?: string;
+        barWidth?: number;
+        container?: any;
         cursorColor?: string;
         cursorWidth?: number;
-        skipLength?: number;
-        minPxPerSec?: number;
-        pixelRatio?: number;
-        fillParent?: boolean;
-        scrollParent?: boolean;
-        hideScrollbar?: boolean;
-        normalize?: boolean;
-        audioContext?: any;
-        container?: any;
         dragSelection?: boolean;
-        loopSelection?: boolean;
-        audioRate?: number;
+        fillParent?: boolean;
+        height?: number;
+        hideScrollbar?: boolean;
         interact?: boolean;
-        splitChannels?: boolean;
+        loopSelection?: boolean;
         mediaContainer?: any;
         mediaControls?: boolean;
-        renderer?: string;
-        backend?: string;
         mediaType?: string;
-        autoCenter?: boolean;
+        minPxPerSec?: number;
+        normalize?: boolean;
+        pixelRatio?: number;
+        progressColor?: string;
+        renderer?: string;
+        scrollParent?: boolean;
+        skipLength?: number;
+        splitChannels?: boolean;
+        waveColor?: string;
     }
 }
 
@@ -52,6 +53,7 @@ interface WaveSurfer
     loadBuffer: (url: string, peaks: number) => any;
     loadDecodedBuffer: (buffer: any) => void;
     loadMediaElement: (urlOrElt: any, peaks: number) => void;
+    on: (strEventoName: string, fnc: Function) => void;
     onProgress: (e: ProgressEvent) => void;
     pause: () => void;
     play: (start: number, end: number) => void;

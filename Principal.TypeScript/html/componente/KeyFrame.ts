@@ -162,7 +162,7 @@ module LipSyc
 
             var intPixelPerFrame = (intParentWidth / intFrameQuantidade);
 
-            return (intPosicao / intPixelPerFrame);
+            return ((intPosicao / intPixelPerFrame) + ConfigLs.i.intFrameInicial);
         }
 
         private getIntOffSetIndex(): number
